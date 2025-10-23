@@ -73,9 +73,7 @@ public actor ProviderState {
     public func push(payload: Properties, event: EventName?) async {
         // No push logging feature, so we log a default event
         
-        let properties : Properties? = (payload as? Properties) ?? nil
-        
-        let defaultEvent = AnalyticalEvent(type: .default, name: DefaultEvent.pushNotification.rawValue, properties: properties)
+        let defaultEvent = AnalyticalEvent(type: .default, name: DefaultEvent.pushNotification.rawValue, properties: payload)
         
         await self.event(defaultEvent)
     }
