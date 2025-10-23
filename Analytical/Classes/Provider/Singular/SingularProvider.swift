@@ -151,7 +151,9 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
         var finalProperties: [String: Any] = [:]
         
         for (key, value) in properties {
-            finalProperties[mapPropertyKey(key: key)] = value
+            if let unwrapped = value.unwrapped {
+                finalProperties[mapPropertyKey(key: key)] = unwrapped
+            }
         }
         
         return finalProperties
@@ -200,7 +202,6 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
             return key
         }
     }
-    
     
     public func getDelegate() async -> AnalyticalProviderDelegate? {
         await actor.getDelegate()
