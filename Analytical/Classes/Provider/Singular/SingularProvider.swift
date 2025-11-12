@@ -56,7 +56,7 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
             Singular.event(mappedEventName, withArgs: map(properties: updatedEvent.properties))
         
        
-           await actor.getDelegate()?.analyticalProviderDidSendEvent(self, event: updatedEvent)
+           await actor.delegate?.analyticalProviderDidSendEvent(self, event: updatedEvent)
         }
     }
     
@@ -199,7 +199,7 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
     
     
     public func getDelegate() async -> AnalyticalProviderDelegate? {
-        await actor.getDelegate()
+        await actor.delegate
     }
     public func setDelegate(_ delegate: AnalyticalProviderDelegate?) async {
         await actor.setDelegate(delegate)
