@@ -14,7 +14,7 @@ import Foundation
 /// - ScreenView:          Log a screen view
 /// - PushNotification:    Log a received push notification
 /// - SignUp:              Log a sign up
-public enum DefaultEvent : String {
+public enum DefaultEvent : String, Sendable {
     case activated              = "AnalyticalActivated"
         
     case purchase               = "AnalyticalEventPurchase"

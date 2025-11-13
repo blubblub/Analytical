@@ -15,11 +15,7 @@ public actor ProviderState {
     public init() { }
     
     public var delegate: (any AnalyticalProviderDelegate)?
-    
-    public func getDelegate() async -> AnalyticalProviderDelegate? {
-        delegate
-    }
-    
+
     public func setDelegate(_ delegate: AnalyticalProviderDelegate?) async {
         self.delegate = delegate
     }
@@ -53,7 +49,7 @@ public actor ProviderState {
         }
     }
     
-    public func update(event: AnalyticalEvent) async -> AnalyticalEvent? {
+    public func update(event: AnalyticalEvent) -> AnalyticalEvent? {
         if let delegate = delegate, let selfProvider = self as? AnalyticalProvider {
             return delegate.analyticalProviderShouldSendEvent(selfProvider, event: event)
         }
@@ -62,8 +58,8 @@ public actor ProviderState {
         }
     }
     
-    public func global(properties: Properties, overwrite: Bool) async {
-        globalProperties = await mergeGlobal(properties: properties, overwrite: overwrite)
+    public func global(properties: Properties, overwrite: Bool) {
+        globalProperties = mergeGlobal(properties: properties, overwrite: overwrite)
     }
     
     public func addDevice(token: Data) async {
@@ -78,7 +74,7 @@ public actor ProviderState {
         await self.event(defaultEvent)
     }
     
-    public func mergeGlobal(properties: Properties?, overwrite: Bool) async -> Properties {
+    public func mergeGlobal(properties: Properties?, overwrite: Bool) -> Properties {
         var final : Properties = globalProperties ?? [:]
         
         if let properties = properties {
